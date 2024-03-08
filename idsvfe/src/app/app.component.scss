@@ -1,0 +1,10 @@
+.app-wrapper {
+    
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    padding: 15px;
+    .app-content {
+        overflow-y: auto;
+    }
+}

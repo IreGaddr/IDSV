@@ -1,0 +1,47 @@
+<div class="wrapper" *ngIf="!showPreview">
+  <div class="p-card pager-wrapper">
+    <div>
+
+      <p-chip *ngIf="selectedImages>0">
+        <div class="p-2">{{selectedImages}} selected</div>
+      </p-chip>
+    </div>
+    <div>
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="images.length"
+        [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
+
+    </div>
+    <div>
+
+    </div>
+  </div>
+
+  <div class="image-wrapper">
+
+    <div class="image" (click)="img.selected=!img.selected" [class.selected]="img.selected"
+      *ngFor="let img of displayImages">
+      <img [src]="'api/thumbnail?filename='+img.src" alt="image" />
+      <div class="image-overlay">
+        <p-button icon="pi pi-search" (click)="selectImage($event,img)"
+          styleClass="p-button-info p-button-text"></p-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="pan-zoom-wrapper">
+  <div class="pan-zoom-close">
+    <p-button icon="pi pi-times" (click)="selectedImage = undefined"
+      styleClass="p-button-info p-button-text"></p-button>
+  </div>
+  <pan-zoom [config]="panZoomConfig" *ngIf="showPreview">
+
+    <div class="bg noselect items" style="position: relative;" [style.width.px]="2400">
+
+      <img *ngIf="selectedImage" [src]="'api/fullimage?filename='+selectedImage.src" alt="image" />
+
+    </div>
+
+  </pan-zoom>
+</div>
